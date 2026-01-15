@@ -1,3 +1,0 @@
-- [ ] Add Font Awesome link to index.html head
-- [ ] Restructure register-form HTML in index.html to wrap inputs/selects/textareas in .input-container with icons and labels inside
-- [ ] Update style.css with styles for .input-container, floating labels, and icons
