@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editorial Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <nav>
+                <div class="nav-left">
+                    <a href="#">Home</a>
+                    <a href="#">Map</a>
+                    <a href="#">Timeline</a>
+                    <a href="#">Identification</a>
+                </div>
+                <div class="nav-right">
+                    <a href="#" class="login-btn">Login</a>
+                    <a href="#" class="register-btn">Register</a>
+                </div>
+            </nav>
+            <img src="assets/art55.jpg" alt="Basketball Court Illustration" class="hero-image">
+        </section>
+        <div id="register-panel" class="panel">
+            <div class="panel-content">
+                <span class="close-btn">&times;</span>
+                <div class="form-container">
+                    <h2>Register</h2>
+                    <form id="register-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name:</label>
+                                <input type="text" id="first-name" name="first-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name:</label>
+                                <input type="text" id="last-name" name="last-name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number:</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender:</label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dob">Date of Birth:</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country:</label>
+                                <input type="text" id="country" name="country" required>
+                            </div>
+                        </div>
+                        
+                        <label for="home-address">Home Address:</label>
+                        <textarea id="home-address" name="home-address" required></textarea>
+                        
+                        <label for="office-address">Office Address:</label>
+                        <textarea id="office-address" name="office-address"></textarea>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" id="confirm-password" name="confirm-password" required>
+                            </div>
+                        </div>
+                        
+                        <label>
+                            <input type="checkbox" id="terms" name="terms" required>
+                            I agree to the Terms and Conditions
+                        </label>
+                        
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <img src="assets/art22.jpg" alt="Registration Image" class="register-image">
+            </div>
+        </div>
+        <div id="login-panel" class="panel">
+            <div class="panel-content">
+                <span class="close-btn">&times;</span>
+                <h2>Login</h2>
+                <form id="login-form">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" required>
+                    
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script>
+        const registerBtn = document.querySelector('.register-btn');
+        const loginBtn = document.querySelector('.login-btn');
+        const registerPanel = document.getElementById('register-panel');
+        const loginPanel = document.getElementById('login-panel');
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const registerForm = document.getElementById('register-form');
+        const loginForm = document.getElementById('login-form');
+
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerPanel.style.display = 'flex';
+        });
+
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginPanel.style.display = 'flex';
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                registerPanel.style.display = 'none';
+                loginPanel.style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === registerPanel) {
+                registerPanel.style.display = 'none';
+            }
+            if (e.target === loginPanel) {
+                loginPanel.style.display = 'none';
+            }
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(registerForm);
+            const userData = Object.fromEntries(formData);
+            localStorage.setItem('registeredUser', JSON.stringify(userData));
+            alert('Registration successful!');
+            registerPanel.style.display = 'none';
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const storedUser = JSON.parse(localStorage.getItem('registeredUser'));
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                alert('Login successful!');
+                loginPanel.style.display = 'none';
+            } else {
+                alert('Invalid credentials!');
+            }
+        });
+    </script>
+</body>
+</html>
